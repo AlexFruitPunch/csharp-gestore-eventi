@@ -32,12 +32,13 @@ namespace GestoreEventi
                     {
                         return listaEventi;
                     }
-                }*/
+            }*/
 
         public static void StampaLista()
         {
-            foreach (Evento nomEvento in eventi)
+            for (int i = 0; i < eventi.Count; i++)
             {
+                Evento nomEvento = eventi[i];
                 Console.WriteLine(nomEvento.ToString());
             }
         }
