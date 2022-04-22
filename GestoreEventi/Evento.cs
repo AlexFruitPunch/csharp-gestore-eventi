@@ -12,9 +12,11 @@ namespace GestoreEventi
         private DateTime data;
         private int capienzaMassima;
         private int numeroPrenotati;
+        private int postiAdisposizione;
 
         // N.B. chiedere per la cosa del solo in lettura dei posti a sedere
 
+        //costruttori
         public Evento(string titolo, DateTime data, int capienzaMassima, int numeroPrenotati)
         {
             SetTitolo(titolo);
@@ -26,6 +28,17 @@ namespace GestoreEventi
             this.data = data;   
             this.capienzaMassima = capienzaMassima; 
             this.numeroPrenotati = numeroPrenotati; */
+        }
+
+        public Evento(string titolo, DateTime data, int capienzaMassima)
+        {
+            SetTitolo(titolo);
+            Setdata(data);
+            SetcapienzaMassima(capienzaMassima);
+
+            /*this.titolo = titolo;
+            this.data = data;   
+            this.capienzaMassima = capienzaMassima;  */
         }
 
         //------ Getters ------
