@@ -11,18 +11,17 @@ namespace GestoreEventi
         private string titolo;
         private DateTime data;
         private int capienzaMassima;
-        private int numeroPrenotati;
-        private int postiAdisposizione;
+        private int postiPrenotati;
 
         // N.B. chiedere per la cosa del solo in lettura dei posti a sedere
 
         //costruttori
-        public Evento(string titolo, DateTime data, int capienzaMassima, int numeroPrenotati)
+        public Evento(string titolo, DateTime data, int capienzaMassima, int postiPrenotati)
         {
             SetTitolo(titolo);
             Setdata(data);
             SetcapienzaMassima(capienzaMassima);
-            SetnumeroPrenotati(numeroPrenotati);
+            SetnumeroPrenotati(postiPrenotati);
 
             /*this.titolo = titolo;
             this.data = data;   
@@ -35,12 +34,60 @@ namespace GestoreEventi
             SetTitolo(titolo);
             Setdata(data);
             SetcapienzaMassima(capienzaMassima);
+            postiPrenotati = 0;
 
             /*this.titolo = titolo;
             this.data = data;   
             this.capienzaMassima = capienzaMassima;  */
         }
 
+        //------ Metodi ------
+
+        public void Prenota()
+        {
+            DateTime dateOdierna = DateTime.Now;
+            if (data < dateOdierna)
+            {
+                throw new ArgumentOutOfRangeException("l'evento è già passato ci dispiace");
+            }
+            else if(postiPrenotati < capienzaMassima)
+            {
+                postiPrenotati++;
+            }
+            else
+            {
+                Console.WriteLine("mi dispiace ma non ci sono più posti da prenotare");
+            }
+        }
+
+        public void Disdici()
+        {
+            DateTime dateOdierna = DateTime.Now;
+            if (data < dateOdierna)
+            {
+                throw new ArgumentOutOfRangeException("l'evento è già passato ci dispiace");
+            }
+            else if(postiPrenotati > 0)
+            {
+                postiPrenotati--;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("mi dispiace ma non si può andare in negativo");
+            }
+        }
+
+        public override string ToString()
+        {
+            return "(dd/mm/yyyy): " + data;
+        }
+
+        public int PostiDisponibili()
+        {
+            int postiRimanenti;
+            postiRimanenti = capienzaMassima - postiPrenotati;
+            return postiRimanenti;
+        }
         //------ Getters ------
 
         public string GetTitolo()
@@ -58,8 +105,8 @@ namespace GestoreEventi
             return capienzaMassima;
         }
 
-        public int GetnumeroPrenotati(){ 
-            return numeroPrenotati;
+        public int GetpostiPrenotati(){ 
+            return postiPrenotati;
         }
 
         //------ Setters ------
@@ -100,15 +147,15 @@ namespace GestoreEventi
                 this.capienzaMassima = capienzaMassima;
             }
         }
-        public void SetnumeroPrenotati(int numeroPrenotati)
+        public void SetnumeroPrenotati(int postiPrenotati)
         {
-            if (numeroPrenotati < 0)
+            if (postiPrenotati < 0)
             {
                 throw new ArgumentOutOfRangeException("non puoi inserire un valore negativo");
             }
             else
             {
-                this.numeroPrenotati = numeroPrenotati;
+                this.postiPrenotati = postiPrenotati;
             }
             
         }
