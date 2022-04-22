@@ -9,15 +9,15 @@ while(nomeEvento == null)
 }
 
 //data Evento
-Console.Write("\ninserisci la data dell'evento(gg/mm/yyyy): ");
+Console.Write("inserisci la data dell'evento(gg/mm/yyyy): ");
 DateTime dataEvento = DateTime.Parse(Console.ReadLine());
 
 //numero posti totali
-Console.Write("\ninserisci il numero di posti totali: ");
+Console.Write("inserisci il numero di posti totali: ");
 int postiTotaliEvento = int.Parse(Console.ReadLine());
 
 //Posti da prenotare
-Console.Write("Vuoi già prenotare dei posti?[si/no]");
+Console.Write("Vuoi già prenotare dei posti[si/no]? ");
 
 bool controlloScelta = false; //controlloScelta si riferisce al controllo si/no
 string? imputUtente = Console.ReadLine().ToLower();
@@ -28,7 +28,7 @@ while (controlloScelta == false)
     switch (imputUtente)
     {
         case "si":
-            Console.Write("\nQuanti posti vuoi prenotare? ");
+            Console.Write("Quanti posti vuoi prenotare? ");
             postiDaPrenotare = int.Parse(Console.ReadLine());
             controlloScelta = true;
             break;
@@ -45,8 +45,7 @@ while (controlloScelta == false)
 Evento nuovoEvento = new Evento(nomeEvento, dataEvento, postiTotaliEvento, postiDaPrenotare);
 
 //Resoconto posti disponibili/prenotati
-Console.Write("Numero di posti prenotati: " + nuovoEvento.GetpostiPrenotati());
-Console.Write("\nNumero di posti prenotati: " + nuovoEvento.PostiDisponibili());
+ResocontoPosti();
 
 //Disdici posti prenotazione
 Console.Write("\n\nVuoi disdire dei posti (si/no)? ");
@@ -61,14 +60,15 @@ while(continuare == true) {
         switch (imputUtente)
         {
             case "si":
-                Console.WriteLine("Indica il numero di posti da disdire");
+                Console.Write("Indica il numero di posti da disdire: ");
                 int numeroDaDisdire = int.Parse(Console.ReadLine());
                 for (int i=0; i< numeroDaDisdire; i++)
                 {
                     nuovoEvento.Disdici();
                 }
                 controlloScelta = true;
-                Console.WriteLine("Vuoi disdire altri posti ?(si/no)");
+                ResocontoPosti();
+                Console.Write("\nVuoi disdire altri posti (si/no)? ");
                 string ulterioreScelta = Console.ReadLine().ToLower();
                     switch (ulterioreScelta)
                     {
@@ -76,6 +76,8 @@ while(continuare == true) {
                         controlloScelta = false;
                         break;
                     case "no":
+                        Console.WriteLine("ok va bene!");
+                        ResocontoPosti();
                         continuare = false;
                         break;
                     default:
@@ -85,6 +87,7 @@ while(continuare == true) {
                 break;
             case "no":
                 controlloScelta = true;
+                continuare = false;
                 break;
             default:
                 Console.WriteLine("imput errato, devi inserire o si o no");
@@ -93,6 +96,16 @@ while(continuare == true) {
     }
 }
 
-//Resoconto post disdicitura posti disponibili/prenotati
-Console.Write("Numero di posti prenotati: " + nuovoEvento.GetpostiPrenotati());
-Console.Write("\nNumero di posti prenotati: " + nuovoEvento.PostiDisponibili());
+
+
+
+
+
+
+
+//------ funzioni ------
+void ResocontoPosti()
+{
+    Console.Write("\nNumero di posti prenotati: " + nuovoEvento.GetpostiPrenotati());
+    Console.Write("\nNumero di posti rimanenti: " + nuovoEvento.PostiDisponibili() + "\n");
+}
