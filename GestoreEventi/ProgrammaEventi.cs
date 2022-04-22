@@ -22,18 +22,46 @@ namespace GestoreEventi
         {
             eventi.Add(nomEvento);
         }
-
-        public void GetListaRicercata(DateTime dataDaCercare)
-        {
-            foreach (Evento evento in eventi)
+        /*public Evento GetListaRicercata(DateTime dataDaCercare)
             {
-                if (eventi.Exists(x => x.GetData() == dataDaCercare))
-                {
-                    Console.WriteLine("l'evento in data " + evento.GetData() + " è " + evento.GetTitolo());
-                }
+                List<Evento> listaEventi = new List<Evento>();
 
+                foreach (Evento evento in eventi)
+                {
+                if (eventi.Exists(x => x.GetData() == dataDaCercare))
+                    {
+                        return listaEventi;
+                    }
+                }*/
+
+        public static void StampaLista()
+        {
+            foreach (Evento nomEvento in eventi)
+            {
+                Console.WriteLine(nomEvento.ToString());
             }
         }
+
+        public void GetListaDiEventi()
+        {
+            Console.WriteLine(titolo + ":");
+            foreach (Evento nomEvento in eventi)
+            {
+                Console.WriteLine(nomEvento.GetData() + " - " + nomEvento.GetTitolo());
+            }
+
+        }
+
+        public int ContaElementi()
+        {
+            return eventi.Count;
+        }
+
+        public void SvuotaLista()
+        {
+            eventi.Clear();
+        }
+
 
         //------- Getters - Setters ---------
         public string GetTitolo()
@@ -46,5 +74,7 @@ namespace GestoreEventi
             this.titolo = titolo;
         }
 
-    }    
+
+    }
 }
+
