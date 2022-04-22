@@ -13,12 +13,19 @@ namespace GestoreEventi
         private int capienzaMassima;
         private int numeroPrenotati;
 
+        // N.B. chiedere per la cosa del solo in lettura dei posti a sedere
+
         public Evento(string titolo, DateTime data, int capienzaMassima, int numeroPrenotati)
         {
-            this.titolo = titolo;
+            SetTitolo(titolo);
+            Setdata(data);
+            SetcapienzaMassima(capienzaMassima);
+            SetnumeroPrenotati(numeroPrenotati);
+
+            /*this.titolo = titolo;
             this.data = data;   
             this.capienzaMassima = capienzaMassima; 
-            this.numeroPrenotati = numeroPrenotati; 
+            this.numeroPrenotati = numeroPrenotati; */
         }
 
         //------ Getters ------
@@ -46,21 +53,51 @@ namespace GestoreEventi
 
         public void SetTitolo(string titolo)
         {
-            this.titolo = titolo;
+            if (titolo != null)
+            {
+                this.titolo = titolo;
+            }
+            else 
+            {
+                throw new ArgumentNullException("Deve inserire un Titolo caro Utente");
+            }
         }
 
         public void Setdata(DateTime data)
         {
-            this.data = data;
+            DateTime dateOdierna = DateTime.Now;   
+            if(data <= dateOdierna)
+            {
+                throw new ArgumentOutOfRangeException("Non puoi inserire una data nel passato");
+            }
+            else
+            { 
+                this.data = data;
+            }
         }
 
         public void SetcapienzaMassima(int capienzaMassima)
         {
-            this.capienzaMassima = capienzaMassima;
+            if(capienzaMassima < 0) 
+            {
+                throw new ArgumentOutOfRangeException("non puoi inserire un valore negativo");
+            }
+            else
+            {
+                this.capienzaMassima = capienzaMassima;
+            }
         }
         public void SetnumeroPrenotati(int numeroPrenotati)
         {
-            this.numeroPrenotati = numeroPrenotati;
+            if (numeroPrenotati < 0)
+            {
+                throw new ArgumentOutOfRangeException("non puoi inserire un valore negativo");
+            }
+            else
+            {
+                this.numeroPrenotati = numeroPrenotati;
+            }
+            
         }
     }
 
